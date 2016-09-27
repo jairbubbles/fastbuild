@@ -175,6 +175,8 @@
 //------------------------------------------------------------------------------
 /*static*/ void PathUtils::FixupFilePath( AString & path )
 {
+    int i = 0;
+
 	// Normalize slashes - TODO:C This could be optimized into one pass
 	path.Replace( OTHER_SLASH, NATIVE_SLASH );
 	while( path.Replace( NATIVE_DOUBLE_SLASH, NATIVE_SLASH_STR ) ) {}
@@ -182,7 +184,5 @@
 	// Sanity check - calling this function on a folder path is an error
 	ASSERT( path.EndsWith( NATIVE_SLASH ) == false );
 }
-
-aze
 
 //------------------------------------------------------------------------------
