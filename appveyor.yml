@@ -15,7 +15,7 @@ before_build:
  
 # Using FastBuild
 build_script:
-- ps: fbuild All-x86-Release All-x64-Release -noprogress
+- ps: fbuild x86-Release x64-Release -noprogress
 
 # Using MSbuild
 #build:
@@ -37,8 +37,7 @@ artifacts:
   name: FASTBuild-Windows-x86
 
 deploy:
-- release: myproduct-v$(appveyor_build_version)
 - provider: GitHub
-- auth_token:
+  auth_token:
     secure: 5MDCvsL3LRe8MibH5pObCEEHoST7Ef2RMgfW9C44m/SoiCZZTvUA+AJG9Ieh7HU6
--  prerelease: true
+  prerelease: true
