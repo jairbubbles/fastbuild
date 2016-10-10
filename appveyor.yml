@@ -15,7 +15,7 @@ before_build:
  
 # Using FastBuild
 build_script:
-- ps: fbuild All-x86 All-x64 -noprogress
+- ps: fbuild x86-Release x64-Release -noprogress
 
 # Using MSbuild
 #build:
@@ -24,17 +24,17 @@ build_script:
   
 after_build:
 # zip versions
-- ps: 7z a fastbuild_x64.zip %APPVEYOR_BUILD_FOLDER%\tmp\x64-Release\Tools\FBuild\FBuildApp\FBuild.exe %APPVEYOR_BUILD_FOLDER%\tmp\x64-Release\Tools\FBuild\FBuildWorker\FBuildWorker.exe
-- ps: 7z a fastbuild_x86.zip %APPVEYOR_BUILD_FOLDER%\tmp\x86-Release\Tools\FBuild\FBuildApp\FBuild.exe %APPVEYOR_BUILD_FOLDER%\tmp\x86-Release\Tools\FBuild\FBuildWorker\FBuildWorker.exe
-#Launch analysis
 - ps: cd ..
+- ps: 7z a FASTBuild-Windows-x64.zip Code\LICENSE.TXT tmp\x64-Release\Tools\FBuild\FBuildApp\FBuild.exe tmp\x64-Release\Tools\FBuild\FBuildWorker\FBuildWorker.exe
+- ps: 7z a FASTBuild-Windows-x86.zip Code\LICENSE.TXT tmp\x86-Release\Tools\FBuild\FBuildApp\FBuild.exe tmp\x86-Release\Tools\FBuild\FBuildWorker\FBuildWorker.exe
+#Launch analysis
 - ps:  ./SonarQubeAnalysisForAppVeyor.ps1 -sources Code/ -buildWrapperCommand "msbuild  'tmp/VisualStudio/FASTBuild.sln'  /t:rebuild"
 
 artifacts:
-- path: fastbuild_x64.zip
-  name: fastbuild_x64
-- path: fastbuild_x86.zip
-  name: fastbuild_x86
+- path: FASTBuild-Windows-x64.zip
+  name: FASTBuild-Windows-x64
+- path: FASTBuild-Windows-x86.zip
+  name: FASTBuild-Windows-x86
 
 deploy:
 - provider: GitHub
